@@ -10,21 +10,17 @@ namespace Blackjack.ClassLibrary
         {
             Console.SetCursorPosition(x, y);
 
-            // Set color based on suit
             Console.ForegroundColor = suit == CardSuitValue.Hearts || suit == CardSuitValue.Diamonds
                 ? ConsoleColor.Red
                 : ConsoleColor.Black;
 
-            // Get the card representation as an array of strings
             string[] cardLines = GetCardLines(face, suit);
 
-            // Output each line of the card
             foreach (string line in cardLines)
             {
                 Console.WriteLine(line);
             }
 
-            // Reset console colors
             Console.ResetColor();
         }
 

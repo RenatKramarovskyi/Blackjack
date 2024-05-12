@@ -12,3 +12,4 @@ C:\Users\renat.LAPTOP-65EIJ7OI\Documents\SECOND course\Blackjack\Blackjack\obj\D
 C:\Users\renat.LAPTOP-65EIJ7OI\Documents\SECOND course\Blackjack\Blackjack\obj\Debug\net8.0\Blackjack.pdb
 C:\Users\renat.LAPTOP-65EIJ7OI\Documents\SECOND course\Blackjack\Blackjack\obj\Debug\net8.0\Blackjack.genruntimeconfig.cache
 C:\Users\renat.LAPTOP-65EIJ7OI\Documents\SECOND course\Blackjack\Blackjack\obj\Debug\net8.0\ref\Blackjack.dll
+C:\Users\renat.LAPTOP-65EIJ7OI\Documents\SECOND course\Blackjack\Blackjack\obj\Debug\net8.0\Blackjack.sourcelink.json

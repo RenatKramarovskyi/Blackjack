@@ -1,8 +1,9 @@
-﻿using Lab03Library;
+﻿using Blackjack.ClassLibrary;
+using Lab03Library;
 
 namespace ClassLibrary;
 
-public interface ICard
+public interface ICard 
 {
     CardFaceValue CardFace { get; }
     CardSuitValue CardSuit { get; }

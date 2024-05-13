@@ -7,46 +7,56 @@ class Program
 {
     static void Main(string[] args)
     {
-        
-        // ====== just a temporary representation, using the hand and deck classes ======
-        
-        
-        // create cards list for player
-        List<ICard> playerCards = new List<ICard>
+        Console.OutputEncoding = System.Text.Encoding.UTF8; 
+        Console.Title = "♣ ♠ Blackjack ♥ ♦";
+            
+        bool runProgram = true;
+        string prompt = "What would you like to do? ";
+        string[] menuOptions = new string[] { "(1) Play Blackjack", "(2) Shuffle and Show Deck", "(3) Exit" };
+        int menuSelection;
+    
+        while (runProgram)
         {
-            CardFactory.CreateBlackjackCard(CardFace.A, CardSuit.Spades),
-            CardFactory.CreateBlackjackCard(CardFace._7, CardSuit.Hearts)
-        };
+            Console.Clear();
+            ReadMethods.ReadChoice(prompt, menuOptions, out menuSelection);
         
-        // create cards list for dealer
-        List<ICard> dealerCards = new List<ICard>
-        {
-            CardFactory.CreateBlackjackCard(CardFace._10, CardSuit.Clubs),
-            CardFactory.CreateBlackjackCard(CardFace.K, CardSuit.Diamonds)
-        };
-
-        // create hands for dealer and player
-        BlackjackHand playerHand = new BlackjackHand();
-        BlackjackHand dealerHand = new BlackjackHand(isDealer: true);
-
-        // add card to dealer and player hands
-        foreach (var card in playerCards)
-        {
-            playerHand.AddCard(card);
-        }
-        foreach (var card in dealerCards)
-        {
-            dealerHand.AddCard(card);
-        }
-        
-        Console.WriteLine("=== Player's Hand ===");
-        playerHand.Print(0, 2);
-
-
-        Console.WriteLine("=== Dealer's Hand ===");
-        dealerHand.Print(0, 15); 
-
-        Console.ReadLine(); 
+            switch (menuSelection)
+            {
+                case 1:
+                    Console.Clear();
+                    BlackjackGame gameInstance = new BlackjackGame();
+                    bool playBlackjack = true;
+                    int choice;
+                
+                    while (playBlackjack)
+                    {
+                        gameInstance.PlayRound();
+                        choice = ReadMethods.ReadInteger("Want to play again?\n(1) Yes   (2) No ", 1, 2);
+                    
+                        if (choice == 1)
+                            playBlackjack = true;
+                        else
+                            playBlackjack = false;
+                    }
+                    break;
+                
+                case 2:
+                    Console.Clear();
+                    Deck showdeck = new Deck(); 
+                    showdeck.DeckMethod(); 
+                    showdeck.Shuffle(); 
+                    showdeck.Print(0, 6);
+                    Console.WriteLine("\nPress any key to return to the main menu...");
+                    Console.ReadKey();
+                    break;
+                
+                case 3:
+                    runProgram = false;
+                    break;
+            } 
+        } 
     }
+
+    
 }
 

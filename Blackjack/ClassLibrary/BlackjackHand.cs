@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-
 namespace ClassLibrary
 {
     public class BlackjackHand : Hand
@@ -23,7 +22,7 @@ namespace ClassLibrary
 
         private void UpdateScore()
         {
-            this.Score = 0;
+            Score = 0;
             int aceCount = 0;
 
             foreach (var card in _cards)
@@ -33,16 +32,16 @@ namespace ClassLibrary
                     if (blackjackCard.Face == CardFace.A)
                         aceCount++;
                     else
-                        this.Score += blackjackCard.Value;
+                        Score += blackjackCard.Value;
                 }
             }
 
             for (int i = 0; i < aceCount; i++)
             {
-                if (this.Score + 11 <= 21)
-                    this.Score += 11;
+                if (Score + 11 <= 21)
+                    Score += 11;
                 else
-                    this.Score += 1;
+                    Score += 1;
             }
         }
 
@@ -51,13 +50,33 @@ namespace ClassLibrary
             foreach (var card in _cards)
             {
                 card.Print(x, y);
-                y += 5; 
+                y += 5;
             }
 
-            
             Console.SetCursorPosition(x, y);
-            Console.WriteLine($"Score: {this.Score}");
+            Console.WriteLine($"Score: {Score}");
+        }
+        public int CountCards()
+        {
+            return _cards.Count;
         }
 
+        public void PrintReveal(int x, int y)
+        {
+            if (_cards.Count > 0)
+            {
+                Console.SetCursorPosition(x, y);
+                Console.WriteLine("┌───────┐");
+                Console.WriteLine("│       │");
+                Console.WriteLine("│   ?   │");
+                Console.WriteLine("│       │");
+                Console.WriteLine("└───────┘");
+
+                for (int i = 1; i < _cards.Count; i++)
+                {
+                    _cards[i].Print(x, y + 12);
+                }
+            }
+        }
     }
 }

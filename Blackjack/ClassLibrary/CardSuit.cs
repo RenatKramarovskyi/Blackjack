@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace Lab03Library
+namespace ClassLibrary
 {
-   
-    public enum CardSuitValue
+    public enum CardSuit
     {
         Spades, 
         Hearts, 

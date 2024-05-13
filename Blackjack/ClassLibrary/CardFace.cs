@@ -1,6 +1,6 @@
 ﻿namespace ClassLibrary;
 
-public enum CardFaceValue
+public enum CardFace
 {
     A,
     _2,

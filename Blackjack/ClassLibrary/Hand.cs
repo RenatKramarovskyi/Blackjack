@@ -1,27 +1,34 @@
-﻿namespace ClassLibrary;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class Hand
+namespace ClassLibrary
 {
-    protected List<ConcreteGameCard> _cards = new List<ConcreteGameCard>();
-
-    public virtual void AddCard(ConcreteGameCard card)
+    public class Hand
     {
-        _cards.Add(card);
-    }
+        protected List<ICard> _cards = new List<ICard>();
 
-    public virtual void Print(int x, int y)
-    {
-        foreach (var item in _cards)
+        public virtual void AddCard(ICard card)
         {
-            if (x >= 108)
+            _cards.Add(card);
+        }
+
+        public virtual void Print(int x, int y)
+        {
+            foreach (var item in _cards)
             {
-                x = 0;
-                y += 8;
+                if (x >= 108)
+                {
+                    x = 0;
+                    y += 8;
+                }
+
+
+                item.Print(x, y);
+                x += 12;
             }
-
-
-            item.PrintCard(x, y);
-            x += 12;
         }
     }
 }

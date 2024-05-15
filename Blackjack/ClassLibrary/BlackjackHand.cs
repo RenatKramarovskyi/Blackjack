@@ -25,7 +25,7 @@ namespace ClassLibrary
             Score = 0;
             int aceCount = 0;
 
-            foreach (var card in _cards)
+            foreach (var card in Cards)
             {
                 if (card is BlackjackCard blackjackCard)
                 {
@@ -47,7 +47,7 @@ namespace ClassLibrary
 
         public override void Print(int x, int y)
         {
-            foreach (var card in _cards)
+            foreach (var card in Cards)
             {
                 card.Print(x, y);
                 y += 5;
@@ -58,12 +58,12 @@ namespace ClassLibrary
         }
         public int CountCards()
         {
-            return _cards.Count;
+            return Cards.Count;
         }
 
         public void PrintReveal(int x, int y)
         {
-            if (_cards.Count > 0)
+            if (Cards.Count > 0)
             {
                 Console.SetCursorPosition(x, y);
                 Console.WriteLine("┌───────┐");
@@ -72,9 +72,9 @@ namespace ClassLibrary
                 Console.WriteLine("│       │");
                 Console.WriteLine("└───────┘");
 
-                for (int i = 1; i < _cards.Count; i++)
+                for (int i = 1; i < Cards.Count; i++)
                 {
-                    _cards[i].Print(x, y + 12);
+                    Cards[i].Print(x, y + 12);
                 }
             }
         }

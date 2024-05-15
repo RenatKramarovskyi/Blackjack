@@ -1,33 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClassLibrary
 {
     public class Hand
     {
-        protected List<ICard> _cards = new List<ICard>();
+        private const int MaxX = 108;
+        private const int YIncrement = 8;
+        private const int XIncrement = 12;
+
+        protected List<ICard> Cards { get; } = new List<ICard>();
 
         public virtual void AddCard(ICard card)
         {
-            _cards.Add(card);
+            Cards.Add(card);
         }
 
         public virtual void Print(int x, int y)
         {
-            foreach (var item in _cards)
+            foreach (var card in Cards)
             {
-                if (x >= 108)
+                if (x >= MaxX)
                 {
                     x = 0;
-                    y += 8;
+                    y += YIncrement;
                 }
 
-
-                item.Print(x, y);
-                x += 12;
+                card.Print(x, y);
+                x += XIncrement;
             }
         }
     }

@@ -1,15 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yebypTVMdKu/+iTixxh4Lo7qGfr4gQCqIADyHykj9f0lRBt0UHnlq6vnXcu/36zUE5Ihs55gNz5LcUS6Xk6Osw==",
+  "dgSpecHash": "tdHAlE4PO4kbntqEd7Af/qQvxEAqYbs8m4NvMv8eC4zVzNKVIzFNLBtnqr8j0yNUEVDjnLoHnoJ8wlJhjNHsQA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\renat.LAPTOP-65EIJ7OI\\Documents\\SECOND course\\Blackjack\\Blackjack\\ClassLibrary\\ClassLibrary.csproj",
+  "projectFilePath": "C:\\Users\\vital\\OneDrive\\Робочий стіл\\Course 2.2\\Labs\\kpz_pullRequests\\Blackjack\\Blackjack\\ClassLibrary\\ClassLibrary.csproj",
   "expectedPackageFiles": [],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\renat.LAPTOP-65EIJ7OI\\Documents\\SECOND course\\Blackjack\\Blackjack\\ClassLibrary\\obj\\project.nuget.cache : Found invalid data while decoding."
-    }
-  ]
+  "logs": []
 }

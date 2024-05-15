@@ -1,42 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClassLibrary
 {
     public class Deck
     {
-        List<ICard> _cards = new List<ICard>();
+        private const int CardsInSuit = 13;
+        private const int SuitsInDeck = 4;
+        private const int TotalCards = 52;
+        private const int MaxX = 108;
+        private const int YIncrement = 8;
+        private const int XIncrement = 12;
+
+        private List<ICard> _cards = new List<ICard>();
+        private Random _rng = new Random();
 
         public Deck()
         {
-            DeckMethod();
+            InitializeDeck();
         }
 
-        public void DeckMethod()
+        public void InitializeDeck()
         {
-
-            for (int i = 0; i < 4; i++)
+            _cards.Clear();
+            for (int suit = 0; suit < SuitsInDeck; suit++)
             {
-                for (int j = 0; j < 13; j++)
+                for (int face = 0; face < CardsInSuit; face++)
                 {
-                    _cards.Add(CardFactory.CreateBlackjackCard((CardFace)j, (CardSuit)i));
+                    _cards.Add(CardFactory.CreateBlackjackCard((CardFace)face, (CardSuit)suit));
                 }
             }
         }
 
         public void Shuffle()
         {
-            Random rng = new Random();
-            for (int i = 0; i < 51; i++)
+            for (int i = _cards.Count - 1; i > 0; i--)
             {
-                int j = rng.Next(i, 52);
-
-                ICard temp = _cards[j];
-                _cards[j] = _cards[i];
-                _cards[i] = temp;
+                int j = _rng.Next(i + 1);
+                (_cards[j], _cards[i]) = (_cards[i], _cards[j]);
             }
         }
 
@@ -44,28 +45,26 @@ namespace ClassLibrary
         {
             if (_cards.Count == 0)
             {
-                DeckMethod();
+                InitializeDeck();
                 Shuffle();
             }
-            ICard temp = _cards[0];
+            ICard cardToDeal = _cards[0];
             _cards.RemoveAt(0);
-            return temp;
+            return cardToDeal;
         }
 
         public void Print(int x, int y)
         {
-            
-            for (int i = 0; i < 52; i++)
+            foreach (var card in _cards)
             {
-                if (x >= 108)
+                if (x >= MaxX)
                 {
                     x = 0;
-                    y += 8;
+                    y += YIncrement;
                 }
 
-
-                _cards[i].Print(x, y);
-                x += 12;
+                card.Print(x, y);
+                x += XIncrement;
             }
         }
     }

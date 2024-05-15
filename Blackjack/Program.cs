@@ -43,7 +43,7 @@ class Program
                 case 2:
                     Console.Clear();
                     Deck showdeck = new Deck(); 
-                    showdeck.DeckMethod(); 
+                    showdeck.InitializeDeck();
                     showdeck.Shuffle(); 
                     showdeck.Print(0, 6);
                     Console.WriteLine("\nPress any key to return to the main menu...");

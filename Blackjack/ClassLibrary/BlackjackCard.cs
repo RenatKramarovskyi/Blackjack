@@ -1,61 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ClassLibrary;
-
-namespace ClassLibrary
+﻿namespace ClassLibrary
 {
-    class BlackjackCard : Card
+    class BlackjackCard(CardFace face, CardSuit suit) : Card(face, suit)
     {
-        public int Value{ get; private set; }
-
-        public BlackjackCard(CardFace face, CardSuit suit) : base(face, suit)
+        public int Value { get; } = face switch
         {
-            switch (face)
-            {
-                default: 
-                    Value = 11;
-                    break;
-                case CardFace._2:
-                    Value = 2;
-                    break;
-                case CardFace._3:
-                    Value = 3;
-                    break;
-                case CardFace._4:
-                    Value = 4;
-                    break;
-                case CardFace._5:
-                    Value = 5;
-                    break;
-                case CardFace._6:
-                    Value = 6;
-                    break;
-                case CardFace._7:
-                    Value = 7;
-                    break;
-                case CardFace._8:
-                    Value = 8;
-                    break;
-                case CardFace._9:
-                    Value = 9;
-                    break;
-                case CardFace._10:
-                    Value = 10;
-                    break;
-                case CardFace.J:
-                    Value = 10;
-                    break;
-                case CardFace.Q:
-                    Value = 10;
-                    break;
-                case CardFace.K:
-                    Value = 10;
-                    break;
-            } 
-
-        }
+            CardFace.A => 11,
+            CardFace._2 => 2,
+            CardFace._3 => 3,
+            CardFace._4 => 4,
+            CardFace._5 => 5,
+            CardFace._6 => 6,
+            CardFace._7 => 7,
+            CardFace._8 => 8,
+            CardFace._9 => 9,
+            CardFace._10 => 10,
+            CardFace.J => 10,
+            CardFace.Q => 10,
+            CardFace.K => 10,
+            _ => throw new ArgumentException("Invalid card face")
+        };
     }
 }

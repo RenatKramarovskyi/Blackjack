@@ -1,51 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClassLibrary
 {
-    public class ReadMethods
+    public static class ReadMethods
     {
         public static int ReadInteger(string prompt, int min = int.MinValue, int max = int.MaxValue)
         {
-
             do
             {
                 Console.Write(prompt);
-                string userInput;
-                bool yes = int.TryParse(userInput = Console.ReadLine(), out int userNumber);
-                if (yes == true)
+                string userInput = Console.ReadLine()!;
+                bool isNumber = int.TryParse(userInput, out var userNumber);
+
+                if (isNumber && userNumber >= min && userNumber <= max)
                 {
-                    if (userNumber <= max && userNumber >= min)
-                    {
-                        return userNumber;
-                    } 
-                    else
-                    {
-                        Console.WriteLine("Please enter a number between " + min + " and " + max);
-                    } 
+                    return userNumber;
                 }
-                else
-                {
-                    Console.WriteLine("Wrong input, please try again . . .");
-                } 
-            } while (true); 
-        } 
+
+                Console.WriteLine(isNumber ? $"Please enter a number between {min} and {max}." : "Wrong input, please try again . . .");
+            } while (true);
+        }
 
         public static void ReadChoice(string prompt, string[] options, out int selection)
         {
-            for (int i = 0; i < options.Length; i++)
+            foreach (string option in options)
             {
-                Console.WriteLine(options[i]);
-            } 
-            Console.WriteLine(); 
-            selection = ReadInteger(prompt, 1, options.Length); 
-        } 
+                Console.WriteLine(option);
+            }
 
-
-
-    } 
-
+            Console.WriteLine();
+            selection = ReadInteger(prompt, 1, options.Length);
+        }
+    }
 }

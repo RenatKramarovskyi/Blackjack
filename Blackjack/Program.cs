@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using ClassLibrary;
 
-
 class Program
 {
     static void Main(string[] args)
@@ -55,8 +54,6 @@ class Program
                     break;
             } 
         } 
-    }
-
-    
+    }  
 }
 

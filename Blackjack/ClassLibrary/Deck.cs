@@ -8,21 +8,20 @@ namespace ClassLibrary
 {
     public class Deck
     {
-        List<ICard> _cards = new List<ICard>();
+        private List<ICard> _cards = new List<ICard>();
 
         public Deck()
         {
-            DeckMethod();
+            CreateDeck();
         }
 
-        public void DeckMethod()
+        private void CreateDeck()
         {
-
-            for (int i = 0; i < 4; i++)
+            foreach (CardSuit suit in Enum.GetValues(typeof(CardSuit)))
             {
-                for (int j = 0; j < 13; j++)
+                foreach (CardFace face in Enum.GetValues(typeof(CardFace)))
                 {
-                    _cards.Add(CardFactory.CreateBlackjackCard((CardFace)j, (CardSuit)i));
+                    _cards.Add(new BlackjackCard(face, suit));
                 }
             }
         }
@@ -30,13 +29,14 @@ namespace ClassLibrary
         public void Shuffle()
         {
             Random rng = new Random();
-            for (int i = 0; i < 51; i++)
+            int n = _cards.Count;
+            while (n > 1)
             {
-                int j = rng.Next(i, 52);
-
-                ICard temp = _cards[j];
-                _cards[j] = _cards[i];
-                _cards[i] = temp;
+                n--;
+                int k = rng.Next(n + 1);
+                ICard value = _cards[k];
+                _cards[k] = _cards[n];
+                _cards[n] = value;
             }
         }
 
@@ -44,28 +44,24 @@ namespace ClassLibrary
         {
             if (_cards.Count == 0)
             {
-                DeckMethod();
-                Shuffle();
+                throw new InvalidOperationException("Deck is empty");
             }
-            ICard temp = _cards[0];
+            ICard card = _cards[0];
             _cards.RemoveAt(0);
-            return temp;
+            return card;
         }
 
         public void Print(int x, int y)
         {
-            
-            for (int i = 0; i < 52; i++)
+            foreach (var card in _cards)
             {
+                card.Print(x, y);
+                x += 12;
                 if (x >= 108)
                 {
                     x = 0;
                     y += 8;
                 }
-
-
-                _cards[i].Print(x, y);
-                x += 12;
             }
         }
     }

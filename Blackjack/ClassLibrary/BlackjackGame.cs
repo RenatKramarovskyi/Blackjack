@@ -8,57 +8,73 @@ namespace ClassLibrary
 {
     public class BlackjackGame
     {
-        BlackjackHand _dealer;
-        BlackjackHand _player;
-        Deck _deck;
-
+        private BlackjackHand _dealer;
+        private BlackjackHand _player;
+        private Deck _deck;
 
         public void PlayRound()
+        {
+            InitializeRound();
+            while (RoundInProgress())
+            {
+                if (CheckForBlackjack())
+                    break;
+                PlayersTurn();
+                DealersTurn();
+                EndRound();
+            }
+            AskForNewRound();
+        }
+
+        private void InitializeRound()
         {
             _dealer = new BlackjackHand(true);
             _player = new BlackjackHand(false);
             _deck = new Deck();
-            bool playRound = true;
-
+            _deck.Shuffle();
             DealInitialCards();
-            while (playRound)
-            {
-                if (_dealer.Score == 21 || _player.Score == 21)
-                {
-                    playRound = false;
-                    DrawTable();
-                    RevealCard(0, 0);
-                }
-                else
-                {
-                    PlayersTurn();
-                    DealersTurn();
-                    playRound = false;
-                }
-            }
+            DrawTable();
+        }
 
+        private bool RoundInProgress()
+        {
+            return !(_dealer.Score == 21 || _player.Score == 21);
+        }
+        private bool CheckForBlackjack()
+        {
+            if (_dealer.Score == 21 || _player.Score == 21)
+            {
+                DrawTable();
+                RevealCard(0, 0);
+                return true;
+            }
+            return false;
+        }
+
+        private void EndRound()
+        {
             _dealer.IsDealer = false;
             DeclareWinner();
             Console.SetCursorPosition(0, 25);
+        }
 
+        private void AskForNewRound()
+        {
             int choice = ReadMethods.ReadInteger("Want to play again?\n(1) Yes   (2) No ", 1, 2);
             if (choice == 1)
             {
-                PlayRound(); 
+                PlayRound();
             }
         }
 
         private void DealInitialCards()
         {
-            _deck.DeckMethod();
-            _deck.Shuffle();
             for (int i = 0; i < 2; i++)
             {
                 _player.AddCard(_deck.Deal());
                 _dealer.AddCard(_deck.Deal());
             }
             DrawTable();
-
         }
 
         private void PlayersTurn()
@@ -76,13 +92,13 @@ namespace ClassLibrary
                 else
                 {
                     Console.SetCursorPosition(0, 20);
-                    _player.Print(0, 20); 
+                    _player.Print(0, 20);
 
                     int option = ReadMethods.ReadInteger(prompt, 1, 2);
                     if (option == 1)
                     {
                         _player.AddCard(_deck.Deal());
-                        DrawTable(); 
+                        DrawTable();
                         userStands = false;
                     }
                     else
@@ -93,24 +109,14 @@ namespace ClassLibrary
             }
         }
 
-
         private void DealersTurn()
         {
             DrawTable();
-            bool dealerTurn = true;
-            while (dealerTurn)
+            while (_dealer.Score < 17)
             {
-                if (_dealer.Score >= 17)
-                {
-                    dealerTurn = false;
-                } 
-                else
-                {
-                    _dealer.AddCard(_deck.Deal());
-                    DrawTable();
-                }
-            } 
-
+                _dealer.AddCard(_deck.Deal());
+                DrawTable();
+            }
         }
 
         private void DeclareWinner()
@@ -151,11 +157,11 @@ namespace ClassLibrary
 
             Console.SetCursorPosition(x, y);
             Console.WriteLine("---- Dealer's Hand ----");
-            
+
             Console.SetCursorPosition(x, y + 1);
             _dealer.Print(x, y + 1);
-            
-            y = _dealer.CountCards() * 6 + 3; 
+
+            y = _dealer.CountCards() * 6 + 3;
 
             Console.SetCursorPosition(x, y);
             Console.WriteLine("---- Player's Hand ----");
@@ -163,14 +169,11 @@ namespace ClassLibrary
             _player.Print(x, y + 1);
         }
 
-
         private void RevealCard(int x, int y)
         {
             Console.SetCursorPosition(x, y + 1);
             _dealer.Print(x, y + 1);
             _dealer.PrintReveal(x, y + 1);
         }
-
-
-    } 
+    }
 } 

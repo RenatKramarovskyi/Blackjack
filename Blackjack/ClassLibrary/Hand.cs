@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary
 {
-    public class Hand
+    public abstract class Hand
     {
         protected List<ICard> _cards = new List<ICard>();
 
@@ -17,17 +17,15 @@ namespace ClassLibrary
 
         public virtual void Print(int x, int y)
         {
-            foreach (var item in _cards)
+            foreach (var card in _cards)
             {
+                card.Print(x, y);
+                x += 12;
                 if (x >= 108)
                 {
                     x = 0;
                     y += 8;
                 }
-
-
-                item.Print(x, y);
-                x += 12;
             }
         }
     }
